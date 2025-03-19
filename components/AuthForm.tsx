@@ -17,13 +17,14 @@ import { authFormSchema } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { signUp, signIn, getLoggedInUser } from '@/lib/actions/user.actions';
-// import PlaidLink from './PlaidLink';
+import PlaidLink from './PlaidLink';
+
 
 const AuthForm = ({ type }: { type: string }) => {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const loggedInUser = getLoggedInUser();
+  
 
   const formSchema = authFormSchema(type);
 
@@ -57,7 +58,7 @@ const AuthForm = ({ type }: { type: string }) => {
             password: data.password
           }
 
-          const newUser = await signUp(data);
+          const newUser = await signUp(userData);
            
           setUser(newUser);
          
@@ -86,9 +87,9 @@ const AuthForm = ({ type }: { type: string }) => {
               src="/icons/logo.svg"
               width={34}
               height={34}
-              alt="Horizon logo"
+              alt="Fintech logo"
             />
-            <h1 className="text-26 font-ibm-plex-serif font-bold text-black-1">Horizon</h1>
+            <h1 className="text-26 font-ibm-plex-serif font-bold text-black-1">Fintech</h1>
           </Link>
 
           <div className="flex flex-col gap-1 md:gap-3">
@@ -110,7 +111,7 @@ const AuthForm = ({ type }: { type: string }) => {
       </header>
       {user ? (
         <div className="flex flex-col gap-4">
-          {/* PlaidLink */}
+          <PlaidLink user={user} variant="primary" />
         </div>
       ): (
         <>
@@ -164,7 +165,7 @@ const AuthForm = ({ type }: { type: string }) => {
             </Link>
           </footer>
         </>
-      )}
+       )} 
     </section>
   )
 }
